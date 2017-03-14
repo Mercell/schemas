@@ -13,6 +13,14 @@
         <junit.version>4.12</junit.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray-bckfnn-maven</id>
+            <name>innovasion-maven</name>
+            <url>https://api.bintray.com/maven/innovasion/maven/schemas/;publish=1</url>
+        </repository>
+    </distributionManagement>
+    
     <repositories>
         <repository>
             <id>jcenter</id>
@@ -60,19 +68,28 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.10.4</version>
-                    <configuration>
-                        <skip>true</skip>
-                        <additionalparam>-Xdoclint:none</additionalparam>
-                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.0.1</version>
-                    <configuration>
-                        <skipSource>true</skipSource>
-                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -88,6 +105,17 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
 
     </build>
 
