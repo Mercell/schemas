@@ -7,7 +7,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>schemas-ted-R2.0.9.S01</artifactId>
+    <artifactId>schemas-udbud.dk-R1.3.5</artifactId>
 
     <name>TED schema models for R2.0.9.S01</name>
     <description>
@@ -47,7 +47,12 @@
                                 <schema>
                                     <fileset>
                                         <includes>
-                                            <include>ted-R2.0.9.S01/TED_ESENDERS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F01_SUPPLIES_SERVICES.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F02_MINOR_CONTRACTS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F03_WORKS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F04_PROCUREMENT_PLANS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F05_CANCELLATION.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F06_FEEDBACK.xsd</include>
                                         </includes>
                                     </fileset>
                                 </schema>

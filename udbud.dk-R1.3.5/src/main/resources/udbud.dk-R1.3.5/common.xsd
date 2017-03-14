@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="R1.3.5">
+<xs:include schemaLocation="cpv_codes.xsd"/>
+<xs:include schemaLocation="cpv_supplementary_codes.xsd"/>
+<xs:include schemaLocation="nuts_codes.xsd"/>
+
+	<xs:complexType name="sender">
+	  <xs:sequence>
+			<xs:element name="CONTACT" type="contact_full" />
+	  </xs:sequence>
+	</xs:complexType>
+	
+	<!-- Simple types -->
+
+	<xs:simpleType name="postal_code">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{4}" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="required_string">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="required_string_short">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="phone">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(\+\d{1,3}\s\d+(\-\d+)*((\s)?/(\s)?(\+\d{1,3}\s)?\d+(\-\d+)*)*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="url">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[^@]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="email">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[^@]+@[^@]+\.[^@]+([,]\s[^@]+@[^@]+\.[^@]+)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="price">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1,3}(\s\d{3})*(,[0-9]{1,4})?" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="tender_id_format">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{4}-\d{6}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Complex types -->
+
+	<xs:complexType name="empty">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType" />
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="att_date">
+		<xs:attribute name="VALUE" type="xs:date" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="att_datetime">
+		<xs:attribute name="VALUE" type="xs:dateTime" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="att_bool">
+		<xs:attribute name="VALUE" type="xs:boolean" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="att_string">
+		<xs:attribute name="VALUE" type="xs:string" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="att_required_string">
+		<xs:attribute name="VALUE" type="required_string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="delivery_location">
+			<xs:sequence>
+				<xs:element ref="NUTS" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tender_id">
+		<xs:attribute name="VALUE" type="tender_id_format" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="cpv">
+		<xs:sequence>
+			<xs:element ref="CPV_CODE" />
+			<xs:element ref="CPV_SUPPLEMENTARY_CODE" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="cpv_container">
+		<xs:sequence>
+			<xs:element name="CPV_MAIN" type="cpv"/>
+			<xs:element name="CPV_ADDITIONAL" type="cpv" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="purchasing_on_behalf">
+		<xs:choice>
+			<xs:element name="NO" type="empty" />
+			<xs:element name="YES">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ON_BEHALF_CONTACT" type="contact" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="prequalified_tenderers">
+		<xs:attribute name="VALUE" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="days_to_respond">
+		<xs:attribute name="VALUE" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="15" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="tender_kind_item">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType" />
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="tender_kind_restricted_item">
+		<xs:complexContent>
+			<xs:extension base="tender_kind_item">
+				<xs:sequence>
+					<xs:element name="PREQUALIFIED_TENDERERS" type="prequalified_tenderers" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="tender_kind">
+		<xs:choice>
+			<xs:element name="OPEN_PROCEDURE" type="tender_kind_item" />
+			<xs:element name="RESTRICTED_PROCEDURE" type="tender_kind_item" />
+			<xs:element name="OTHER_PROCEDURE" type="tender_kind_item" />
+		</xs:choice>
+	</xs:complexType>
+	
+	<xs:complexType name="tender_kind_works">
+		<xs:choice>
+			<xs:element name="COMPETITIVE_DIALOGUE" type="tender_kind_item" />
+			<xs:element name="RESTRICTED_COMPETITIVE_DIALOGUE" type="tender_kind_restricted_item" />
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="contract_sum">
+		<xs:sequence>
+			<xs:element name="CONTRACT_SUM_VALUE">
+				<xs:complexType>
+					<xs:attribute name="VALUE" type="price" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CONTRACT_SUM_IS_PUBLIC" type="att_bool" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="criteria">
+		<xs:sequence>
+			<xs:element name="CRITERIA_DESCRIPTION" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="criteria_assignment">
+		<xs:sequence>
+			<xs:element name="CRITERIA" type="criteria_assignment_item" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="criteria_assignment_item">
+		<xs:sequence>
+			<xs:element name="CRITERIA_TYPE">
+				<xs:complexType>
+					<xs:attribute name="VALUE" type="criteria_assignment_enum" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CRITERIA_WEIGHT" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="criteria_assignment_works">
+		<xs:sequence>
+			<xs:element name="CRITERIA" type="criteria_assignment_works_item" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="criteria_assignment_works_item">
+		<xs:sequence>
+			<xs:element name="CRITERIA_TYPE">
+				<xs:complexType>
+					<xs:attribute name="VALUE" type="criteria_assignment_works_enum" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CRITERIA_WEIGHT" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tender_type">
+		<xs:attribute name='VALUE' type='tender_type_enum' use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="contract_type">
+		<xs:attribute name='VALUE' type='contract_type_enum' use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="authority_type">
+		<xs:attribute name='VALUE' type='authority_type_enum' use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="contact_person">
+		<xs:sequence>
+			<xs:element name="FIRST_NAME" type="required_string" />
+			<xs:element name="LAST_NAME" type="required_string" />
+			<xs:element name="PHONE" type="phone" />
+			<xs:element name="E_MAIL" type="email" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="recipient_information">
+		<xs:sequence>
+			<xs:element name="RECIPIENT_OFFICIALNAME" type="required_string" minOccurs="0" />
+			<xs:element name="RECIPIENT_ADDRESS" type="required_string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="country">
+		<xs:attribute name="VALUE" type="xs:string" fixed="DK" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="contact">
+		<xs:sequence>
+			<xs:element name="OFFICIALNAME" type="required_string" />
+			<xs:element name="STREET" type="required_string" />
+			<xs:element name="STREETNUMBER" type="required_string_short" />
+			<xs:element name="FLOOR" type="xs:string" minOccurs="0" />
+			<xs:element name="SIDE_OR_DOOR" type="xs:string" minOccurs="0" />
+			<xs:element name="POSTAL_CODE" type="postal_code" />
+			<xs:element name="TOWN" type="required_string" />
+			<xs:element name="COUNTRY" type="country" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="contact_full">
+		<xs:complexContent>
+			<xs:extension base="contact">
+				<xs:sequence>
+					<xs:element name="PHONE" type="phone" />
+					<xs:element name="FAX" type="phone" minOccurs="0" />
+					<xs:element name="URL" type="url" />
+					<xs:element name="E_MAIL" type="email" />
+					<xs:element name="RECIPIENT_INFORMATION" type="recipient_information" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="contact_authority">
+		<xs:complexContent>
+			<xs:extension base="contact_full">
+				<xs:sequence>
+					<xs:element name="CONTACT_PERSON" type="contact_person" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="document_header">
+		<xs:sequence>
+			<xs:element name="CONTENT_DESCRIPTION" type="xs:string" />
+			<xs:element name="CONTENT_DISPOSITION" type="xs:string" />
+			<xs:element name="CONTENT_TRANSFER_ENCODING" type="xs:string" fixed="BASE64" />
+			<xs:element name="CONTENT_TYPE" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="document">
+		<xs:sequence>
+			<xs:element name="DOCUMENT_HEADER" type="document_header" />
+			<xs:element name="DOCUMENT_CONTENT" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="document_container">
+		<xs:sequence>
+			<xs:element name="DOCUMENT" type="document" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="document_url_container">
+		<xs:sequence>
+			<xs:element name="DOCUMENT_URL" type="url" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- Enumerations -->
+
+	<xs:simpleType name="criteria_assignment_enum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOST_ECONOMICALLY_ADVANTAGEOUS_TENDER" />
+			<xs:enumeration value="LOWEST_PRICE" />
+			<xs:enumeration value="OTHER" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="criteria_assignment_works_enum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOST_ECONOMICALLY_ADVANTAGEOUS_TENDER" />
+			<xs:enumeration value="LOWEST_PRICE" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="tender_type_enum">
+		<xs:restriction base='xs:string'>
+			<xs:enumeration value='NATIONAL_TENDER' />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name='contract_type_enum'>
+		<xs:restriction base='xs:string'>
+			<xs:enumeration value='SUPPLIES' />
+			<xs:enumeration value='SERVICES' />
+			<xs:enumeration value='WORKS' />
+			<xs:enumeration value='MIXED' />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name='authority_type_enum'>
+		<xs:restriction base='xs:string'>
+			<xs:enumeration value='STATE' />
+			<xs:enumeration value='REGION' />
+			<xs:enumeration value='MUNICIPALITY' />
+			<xs:enumeration value='OTHER' />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

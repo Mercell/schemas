@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="R1.3.5">
+	<xs:include schemaLocation="cpv_codes.xsd"/>
+	<xs:include schemaLocation="cpv_supplementary_codes.xsd"/>
+	<xs:include schemaLocation="nuts_codes.xsd"/>
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="fd_contract_procurement_plans">
+		<xs:sequence>
+			<xs:element name="TENDER_INFORMATION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TENDER_ID" type="tender_id" />
+						<xs:element name="TENDER_ANNOUNCEMENT_DATE" type="att_datetime" />
+						<xs:element name="TENDER_TYPE" type="tender_type" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CONTRACT_INFORMATION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PROCUREMENT_PLAN_TITLE" type="att_required_string" />
+						<xs:element name="PROCUREMENT_PLAN_DESCRIPTION" type="xs:string" />
+						<xs:element name="PURCHASING_ON_BEHALF" type="purchasing_on_behalf" />
+						<xs:element name="CONTRACTING_AUTHORITY_INFORMATION">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="CONTRACTING_AUTHORITY_TYPE" type="authority_type" />
+									<xs:element name="CONTRACTING_AUTHORITY_CONTACT" type="contact_full" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CONTRACT_VARIOUS">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="EDITED_COMMENTS" type="xs:string" minOccurs="0" />
+									<xs:element name="FURTHER_COMMENTS" type="xs:string" minOccurs="0" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="contract_procurement_plans">
+		<xs:sequence>
+		    <xs:element name="SENDER" type="sender" />
+			<xs:element name="FD_CONTRACT_PROCUREMENTS_PLANS" type="fd_contract_procurement_plans"/>
+		</xs:sequence>
+		<xs:attribute name="FORM" use="required" fixed="4"/>
+		<xs:attribute name="VERSION" use="required" fixed="R1.3.5"/>
+	</xs:complexType>
+
+	<!-- ROOT element -->
+	<xs:element name="CONTRACT_PROCUREMENTS_PLANS" type="contract_procurement_plans">
+		<xs:annotation>
+			<xs:documentation>F4 root element</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

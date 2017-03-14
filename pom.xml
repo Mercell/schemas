@@ -5,7 +5,7 @@
     <artifactId>schemas</artifactId>
     <packaging>pom</packaging>
     <name>innovasion schemas</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,6 +41,7 @@
 
     <modules>
         <module>ted-R2.0.9.S01</module>
+        <module>udbud.dk-R1.3.5</module>
     </modules>
 
     <build>

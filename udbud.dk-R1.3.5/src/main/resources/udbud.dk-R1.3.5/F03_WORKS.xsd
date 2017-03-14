@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="R1.3.5">
+	<xs:include schemaLocation="cpv_codes.xsd"/>
+	<xs:include schemaLocation="cpv_supplementary_codes.xsd"/>
+	<xs:include schemaLocation="nuts_codes.xsd"/>
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="fd_contract_works">
+		<xs:sequence>
+			<xs:element name="TENDER_INFORMATION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TENDER_TITLE" type="att_required_string" />
+						<xs:element name="TENDER_ID" type="tender_id" />
+						<xs:element name="TENDER_ANNOUNCEMENT_DATE" type="att_datetime" />
+						<xs:element name="TENDER_TYPE" type="tender_type" />
+						<xs:element name="TENDER_DETAILS">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TENDER_KIND" type="tender_kind_works" />
+									<xs:element name="TENDER_DEADLINE" type="att_datetime" />
+									<xs:element name="TENDER_CRITERIA">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="SELECTION_CRITERIA" type="xs:string" minOccurs="0" />
+												<xs:element name="ASSIGNMENT_CRITERIA" type="criteria_assignment_works" />
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="TENDER_SMV_FRIENDLY" type="att_bool" minOccurs="0" />
+									<xs:element name="TENDER_WANT_FEEDBACK" type="att_bool" minOccurs="0" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CONTRACT_INFORMATION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PURCHASING_ON_BEHALF" type="purchasing_on_behalf" />
+						<xs:element name="CONTRACT_DETAILS">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="CONTRACT_TYPE" type="contract_type" />
+									<xs:element name="CONTRACT_DESCRIPTION" type="xs:string" />
+									<xs:element name="DELIVERY_LOCATION" type="delivery_location" />
+									<xs:element name="CPV" type="cpv_container" />
+									<xs:element name="CONTRACT_SUM" type="contract_sum" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CONTRACTING_AUTHORITY_INFORMATION">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="CONTRACTING_AUTHORITY_TYPE" type="authority_type" />
+									<xs:element name="CONTRACTING_AUTHORITY_CONTACT" type="contact_authority" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CONTRACT_VARIOUS">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="EDITED_COMMENTS" type="xs:string" minOccurs="0" />
+									<xs:element name="FURTHER_COMMENTS" type="xs:string" minOccurs="0" />
+									<xs:choice>
+										<xs:element name="INCLUDED_FILES" type="document_container" minOccurs="0" />
+										<xs:element name="INCLUDED_URLS" type="document_url_container" minOccurs="0" />
+									</xs:choice>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="contract_works">
+		<xs:sequence>
+			<xs:element name="SENDER" type="sender" />
+			<xs:element name="FD_CONTRACT_WORKS" type="fd_contract_works"/>
+		</xs:sequence>
+		<xs:attribute name="FORM" use="required" fixed="3"/>
+		<xs:attribute name="VERSION" use="required" fixed="R1.3.5"/>
+	</xs:complexType>
+	
+	<!-- ROOT element -->
+	<xs:element name="CONTRACT_WORKS" type="contract_works">
+		<xs:annotation>
+			<xs:documentation>F3 root element</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

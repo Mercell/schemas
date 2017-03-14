@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="R1.3.5">
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:complexType name="feedback">
+        <xs:sequence>
+            <xs:element name="TENDER_ID" type="tender_id" />
+            <xs:element name="FEEDBACK_HEADER" type="xs:string" />
+            <xs:element name="FEEDBACK_TEXT" type="xs:string" />
+            <xs:element name="FEEDBACK_DATE" type="xs:dateTime" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="send_feedback">
+        <xs:sequence>
+            <xs:element name="SENDER" type="sender" />
+            <xs:element name="FEEDBACK" type="feedback" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="FORM" use="required" fixed="6"/>
+        <xs:attribute name="VERSION" use="required" fixed="R1.3.5"/>
+    </xs:complexType>
+
+    <!-- ROOT element -->
+    <xs:element name="SEND_FEEDBACK" type="send_feedback">
+        <xs:annotation>
+            <xs:documentation>F6 root element</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>
+
