@@ -9,7 +9,7 @@
 
     <artifactId>schemas-udbud.dk-R1.3.5</artifactId>
 
-    <name>TED schema models for R2.0.9.S01</name>
+    <name>udbud.dk schema models for R1.3.5</name>
     <description>
 	Data models used by ethics.
     </description>
