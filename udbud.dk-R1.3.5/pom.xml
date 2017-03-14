@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>dk.innovasion</groupId>
+        <artifactId>schemas</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>schemas-udbud.dk-R1.3.5</artifactId>
+
+    <name>TED schema models for R2.0.9.S01</name>
+    <description>
+	Data models used by ethics.
+    </description>
+
+    <organization>
+        <name>Innovasion</name>
+        <url>http://www.innovasion.dk</url>
+    </organization>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <id>xsd</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemas>
+                                <schema>
+                                    <fileset>
+                                        <includes>
+                                            <include>udbud.dk-R1.3.5/F01_SUPPLIES_SERVICES.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F02_MINOR_CONTRACTS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F03_WORKS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F04_PROCUREMENT_PLANS.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F05_CANCELLATION.xsd</include>
+                                            <include>udbud.dk-R1.3.5/F06_FEEDBACK.xsd</include>
+                                        </includes>
+                                    </fileset>
+                                </schema>
+                            </schemas>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+

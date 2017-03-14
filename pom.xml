@@ -41,6 +41,7 @@
 
     <modules>
         <module>ted-R2.0.9.S01</module>
+        <module>udbud.dk-R1.3.5</module>
     </modules>
 
     <build>

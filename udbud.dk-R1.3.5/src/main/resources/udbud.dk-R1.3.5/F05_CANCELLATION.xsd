@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="R1.3.5">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="fd_contract_cancellation">
+		<xs:sequence>
+			<xs:element name="TENDER_INFORMATION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TENDER_ID" type="tender_id" />
+						<xs:element name="TENDER_CANCELLATION_REASON" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="contract_cancellation">
+		<xs:sequence>
+		    <xs:element name="SENDER" type="sender" />
+			<xs:element name="FD_CONTRACT_CANCELLATION" type="fd_contract_cancellation"/>
+		</xs:sequence>
+		<xs:attribute name="FORM" use="required" fixed="5"/>
+		<xs:attribute name="VERSION" use="required" fixed="R1.3.5"/>
+	</xs:complexType>
+
+    <!-- ROOT element -->
+	<xs:element name="CONTRACT_CANCELLATION" type="contract_cancellation">
+		<xs:annotation>
+			<xs:documentation>F5 root element</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
