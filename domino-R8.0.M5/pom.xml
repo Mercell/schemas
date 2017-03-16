@@ -7,10 +7,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>schemas-udbud.dk-R1.3.5</artifactId>
+    <artifactId>schemas-domino-R8.0.M5</artifactId>
 
-    <name>schema models for udbud.dk R1.3.5</name>
-    <description>JAXB classes generated from udbud.dk R.1.3.5</description>
+    <name>schema models for domino-R8.0.M5</name>
+    <description>JAXB classes generated from domino R8.0.M5</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,12 +39,7 @@
                                 <schema>
                                     <fileset>
                                         <includes>
-                                            <include>udbud.dk-R1.3.5/F01_SUPPLIES_SERVICES.xsd</include>
-                                            <include>udbud.dk-R1.3.5/F02_MINOR_CONTRACTS.xsd</include>
-                                            <include>udbud.dk-R1.3.5/F03_WORKS.xsd</include>
-                                            <include>udbud.dk-R1.3.5/F04_PROCUREMENT_PLANS.xsd</include>
-                                            <include>udbud.dk-R1.3.5/F05_CANCELLATION.xsd</include>
-                                            <include>udbud.dk-R1.3.5/F06_FEEDBACK.xsd</include>
+                                            <include>domino/domino_8_0_M5.xsd</include>
                                         </includes>
                                     </fileset>
                                 </schema>

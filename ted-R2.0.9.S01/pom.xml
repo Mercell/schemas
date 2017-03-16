@@ -9,19 +9,12 @@
 
     <artifactId>schemas-ted-R2.0.9.S01</artifactId>
 
-    <name>TED schema models for R2.0.9.S01</name>
-    <description>
-	Data models used by ethics.
-    </description>
+    <name>schema models for TED eSender R2.0.9.S01</name>
+    <description>JAXB classes generated from TED schema models for R2.0.9.S01</description>
 
-    <organization>
-        <name>Innovasion</name>
-        <url>http://www.innovasion.dk</url>
-    </organization>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
     </properties>
 
     <build>
@@ -61,7 +54,6 @@
     </build>
 
     <dependencies>
-
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

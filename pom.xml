@@ -27,6 +27,11 @@
         </repository>
     </repositories>
 
+    <organization>
+        <name>Innovasion</name>
+        <url>http://www.innovasion.dk</url>
+    </organization>
+
 
     <dependencyManagement>
         <dependencies>
@@ -42,6 +47,7 @@
     <modules>
         <module>ted-R2.0.9.S01</module>
         <module>udbud.dk-R1.3.5</module>
+        <module>domino-R8.0.M5</module>
     </modules>
 
     <build>
